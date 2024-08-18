@@ -396,3 +396,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Don't include sln, vcxproj and binaries
+*.sln
+*.vcxproj
+*.exe
+*.dll
+*.a
+*.so
