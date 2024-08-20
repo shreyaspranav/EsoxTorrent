@@ -404,3 +404,6 @@ FodyWeavers.xsd
 *.dll
 *.a
 *.so
+*.ini
+*.filters
+
