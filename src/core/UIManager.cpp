@@ -11,6 +11,7 @@ namespace Esox
 	struct UIManagerData
 	{
 		std::vector<UILayer*> uiLayers;
+		uint8_t fontSize = 16;
 
 	}uiManagerState;
 
@@ -20,6 +21,7 @@ namespace Esox
 
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+		io.Fonts->AddFontFromFileTTF("resources/fonts/DroidSans.ttf", uiManagerState.fontSize);
 
 		ImGui_ImplGlfw_InitForOpenGL(window->GetNativeWindow(), true);
 		ImGui_ImplOpenGL2_Init();

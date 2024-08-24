@@ -10,9 +10,11 @@ bin_folder = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Declare all the paths here:
 Dir = {}
 Dir["GLFW_source"]      = "deps/glfw/src"
+Dir["ImGui"]            = "deps/imgui"
+
 Dir["GLFW_include"]     = "deps/glfw/include"
 Dir["glad_include"]     = "deps/glad/include"
-Dir["ImGui"]            = "deps/imgui"
+Dir["asio_include"]     = "deps/asio/include"
 
 workspace "EsoxTorrent"
     platforms       { "x86", "x64" }
@@ -72,6 +74,7 @@ project "EsoxTorrent"
     includedirs {
         "%{Dir.GLFW_include}",
         "%{Dir.glad_include}",
+        "%{Dir.asio_include}",
         "%{Dir.ImGui}",
 
         -- Using the source directory as the include directory to avoid going back 
