@@ -26,6 +26,7 @@ namespace Esox
 		ImGui::Begin("Test Window");
 
 		ImGui::Text("This is going to be a torrenting application.");
+		ImGui::Text("Frametime: %f", timestep);
 		if (ImGui::Button("Test Button"))
 			std::cout << "Button Pressed!";
 

@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "UIManager.h"
+#include "Timer.h"
 
 // UI layers:
 #include "ui/MainUILayer.h"
@@ -21,12 +22,19 @@ namespace Esox
 	{
 		Application::Start();
 
+		float frameTime = 0.0f;
+
 		while (!m_AppWindow->WindowShouldClose())
 		{
-			Application::Update(0.0f);
-			Application::UIUpdate(0.0f);
+			Timer t;
+
+			Application::Update(frameTime);
+			Application::UIUpdate(frameTime);
 
 			m_AppWindow->SwapBuffers();
+			t.Stop();
+			
+			frameTime = t.GetElapedTime() / 1000.0f;
 		}
 
 		Application::Finish();
