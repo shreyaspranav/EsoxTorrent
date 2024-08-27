@@ -12,9 +12,10 @@ Dir = {}
 Dir["GLFW_source"]      = "deps/glfw/src"
 Dir["ImGui"]            = "deps/imgui"
 
-Dir["GLFW_include"]     = "deps/glfw/include"
-Dir["glad_include"]     = "deps/glad/include"
-Dir["asio_include"]     = "deps/asio/include"
+Dir["GLFW_include"]             = "deps/glfw/include"
+Dir["glad_include"]             = "deps/glad/include"
+Dir["asio_include"]             = "deps/asio/include"
+Dir["bencode_hpp_include"]      = "deps/bencode.hpp/include"
 
 workspace "EsoxTorrent"
     platforms       { "x86", "x64" }
@@ -25,7 +26,7 @@ project "EsoxTorrent"
     language "C++"
     targetdir ("bin/" .. bin_folder)
     objdir ("bin/" .. bin_folder .. "/obj")
-    cppdialect "C++17"
+    cppdialect "C++20"
 
     files {
         -- The core project source files: --------------------
@@ -75,6 +76,7 @@ project "EsoxTorrent"
         "%{Dir.GLFW_include}",
         "%{Dir.glad_include}",
         "%{Dir.asio_include}",
+        "%{Dir.bencode_hpp_include}",
         "%{Dir.ImGui}",
 
         -- Using the source directory as the include directory to avoid going back 

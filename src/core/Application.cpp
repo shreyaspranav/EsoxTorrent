@@ -2,6 +2,8 @@
 #include "UIManager.h"
 #include "Timer.h"
 
+#include "torrent/TorrentHandler.h"
+
 // UI layers:
 #include "ui/MainUILayer.h"
 
@@ -48,6 +50,8 @@ namespace Esox
 
 		UILayer* mainLayer = new MainUILayer();
 		UIManager::PushUILayer(mainLayer);
+
+		TorrentHandler::Init();
 	}
 
 	void Application::Update(float timestep)
