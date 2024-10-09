@@ -44,7 +44,6 @@ project "EsoxTorrent"
         "%{Dir.GLFW_include}",
         "%{Dir.glad_include}",
         "%{Dir.asio_include}",
-        -- "%{Dir.cpp_bencoding_include}",
         "%{Dir.bencode_hpp}",
         "%{Dir.ImGui}",
 
