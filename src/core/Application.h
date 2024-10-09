@@ -1,15 +1,12 @@
 #pragma once
 
-#include <cstdint>
-#include <string>
-#include <memory>
-
+#include "Base.h"
 #include "ApplicationWindow.h"
 
 namespace Esox
 {
 	// Struct that holds the command-line arguments of the application, used a raw string array
-	// because the the arguments lifetime is guarenteed.
+	// because the the arguments lifetime is guaranteed.
 	struct ApplicationArgs
 	{
 		uint32_t applicationArgCount;
@@ -23,7 +20,7 @@ namespace Esox
 		ApplicationArgs* args;
 
 		uint32_t windowWidth, windowHeight;
-		std::string windowTitle;
+		String windowTitle;
 	};
 
 	class Application

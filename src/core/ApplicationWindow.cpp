@@ -13,7 +13,7 @@ namespace Esox
 	
 	// --------------------------------------------------------------------------------------------------------------------
 
-	ApplicationWindow::ApplicationWindow(uint32_t width, uint32_t height, const std::string& title)
+	ApplicationWindow::ApplicationWindow(uint32_t width, uint32_t height, const String& title)
 		:m_Width(width), m_Height(height), m_Title(title)
 	{
 

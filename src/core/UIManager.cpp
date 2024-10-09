@@ -1,7 +1,5 @@
 #include "UIManager.h"
 
-#include <vector>
-
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl2.h>
@@ -10,7 +8,7 @@ namespace Esox
 {
 	struct UIManagerData
 	{
-		std::vector<UILayer*> uiLayers;
+		Vector<UILayer*> uiLayers;
 		uint8_t fontSize = 16;
 
 	}uiManagerState;

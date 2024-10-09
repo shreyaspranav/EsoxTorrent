@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "Base.h"
 
 namespace Esox
 {
@@ -12,6 +12,6 @@ namespace Esox
 
 		virtual void UIUpdate(float timestep) = 0;
 	protected:
-		std::string layerName = "UILayer";
+		String layerName = "UILayer";
 	};
 }
