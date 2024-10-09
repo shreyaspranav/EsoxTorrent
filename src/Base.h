@@ -39,6 +39,7 @@
 
 // 'using' section -------------------------------------------------
 using String = std::string;
+using Size   = size_t;
 
 template<typename T>
 using Scope = std::unique_ptr<T>;

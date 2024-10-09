@@ -52,6 +52,8 @@ project "EsoxTorrent"
         "src"
     }
 
+    defines { "_CRT_SECURE_NO_WARNINGS" }
+
     links {
         "GLFW", "ImGui", 
     }
