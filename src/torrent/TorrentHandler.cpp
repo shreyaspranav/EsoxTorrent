@@ -58,14 +58,14 @@ namespace Esox
 			// TODO: Do some better error handling,
 			if (torrentFilePath.extension() != ".torrent")
 			{
-				ENOX_LOG_ERROR("%s is not a valid .torrent file!", torrentFilePath.string().c_str());
+				ESOX_LOG_ERROR("%s is not a valid .torrent file!", torrentFilePath.string().c_str());
 				return nullptr;
 			}
 
 			std::ifstream inputFileStream(torrentFilePath, std::ios::binary);
 			if (!inputFileStream)
 			{
-				ENOX_LOG_ERROR("Cannot read %s", torrentFilePath.string().c_str());
+				ESOX_LOG_ERROR("Cannot read %s", torrentFilePath.string().c_str());
 				return nullptr;
 			}
 

@@ -18,7 +18,7 @@ namespace Esox
 	{
 
 		bool initialized = glfwInit();
-		ENOX_ASSERT(initialized);
+		ESOX_ASSERT(initialized);
 
 		m_Window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 

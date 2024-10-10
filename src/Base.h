@@ -15,11 +15,11 @@
 
 #ifndef PRODUCTION
     // Assertions:
-    #define ENOX_ASSERT(COND)                       assert(COND)
-    #define ENOX_STATIC_ASSERT(COND, S)             static_assert(COND, S)
+    #define ESOX_ASSERT(COND)                       assert(COND)
+    #define ESOX_STATIC_ASSERT(COND, S)             static_assert(COND, S)
     
     // Logging: 
-    #define __ENOX_LOG(loggerType, fmt, ...) \
+    #define __ESOX_LOG(loggerType, fmt, ...) \
         do { \
             printf("[%s] %s:%d: ", #loggerType, __FILE__, __LINE__); \
             printf(fmt, ##__VA_ARGS__); \
@@ -27,14 +27,14 @@
         } while (0)
     
     // Logger for different scenarios:
-    #define ENOX_LOG_ERROR(fmt, ...)   __ENOX_LOG(ERROR, fmt, ##__VA_ARGS__)
-    #define ENOX_LOG_WARN(fmt, ...)    __ENOX_LOG(WARNING, fmt, ##__VA_ARGS__)
-    #define ENOX_LOG_INFO(fmt, ...)    __ENOX_LOG(INFO, fmt, ##__VA_ARGS__)
+    #define ESOX_LOG_ERROR(fmt, ...)   __ESOX_LOG(ERROR, fmt, ##__VA_ARGS__)
+    #define ESOX_LOG_WARN(fmt, ...)    __ESOX_LOG(WARNING, fmt, ##__VA_ARGS__)
+    #define ESOX_LOG_INFO(fmt, ...)    __ESOX_LOG(INFO, fmt, ##__VA_ARGS__)
 #else
     // Logger for different scenarios:
-    #define ENOX_LOG_ERROR(fmt, ...)
-    #define ENOX_LOG_WARN(fmt, ...) 
-    #define ENOX_LOG_INFO(fmt, ...) 
+    #define ESOX_LOG_ERROR(fmt, ...)
+    #define ESOX_LOG_WARN(fmt, ...) 
+    #define ESOX_LOG_INFO(fmt, ...) 
 #endif
 
 // 'using' section -------------------------------------------------
