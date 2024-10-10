@@ -16,7 +16,6 @@ namespace Esox
 	ApplicationWindow::ApplicationWindow(uint32_t width, uint32_t height, const String& title)
 		:m_Width(width), m_Height(height), m_Title(title)
 	{
-
 		bool initialized = glfwInit();
 		ESOX_ASSERT(initialized);
 
