@@ -8,7 +8,7 @@ namespace Esox
 {
 	Ref<TorrentInfo> TorrentInfoDecoder::GetTorrentInfoFromTorrentFile(const std::filesystem::path& torrentFilePath)
 	{
-		Ref<TorrentInfo> torrentInfo = std::make_shared<TorrentInfo>();
+		Ref<TorrentInfo> torrentInfo;
 
 		char* fileBuffer;
 		Size fileBufferSize;
@@ -51,9 +51,12 @@ namespace Esox
 			// Compulsory ones: ----------------------------------------------
 			{
 				// Retrieve the announce URL.
-				torrentInfo->announceURL = std::get<String>(rootDict["announce"]);
+				String name = std::get<String>(infoDict["name"]);
 
-				torrentInfo->name = std::get<String>(infoDict["name"]);
+				torrentInfo = std::make_shared<TorrentInfo>(name);
+				torrentInfo->name = name;
+
+				torrentInfo->announceURL = std::get<String>(rootDict["announce"]);
 				torrentInfo->pieceLength = static_cast<uint32_t>(std::get<bencode::integer>(infoDict["piece length"]));
 
 				std::string pieceHashes = std::get<String>(infoDict["pieces"]);
