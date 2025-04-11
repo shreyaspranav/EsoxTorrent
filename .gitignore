@@ -407,3 +407,7 @@ FodyWeavers.xsd
 *.ini
 *.filters
 
+
+MakeFile
+*.make
+

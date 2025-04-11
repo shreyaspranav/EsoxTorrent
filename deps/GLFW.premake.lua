@@ -57,6 +57,38 @@ project "GLFW"
 
         staticruntime "On"
 
+    filter "system:linux"
+		pic "On"
+
+		systemversion "latest"
+
+		files
+		{
+            "%{Dir.GLFW_source}/x11_init.c",
+            "%{Dir.GLFW_source}/x11_monitor.c",
+            "%{Dir.GLFW_source}/x11_window.c",
+            "%{Dir.GLFW_source}/x11_platform.h",
+            "%{Dir.GLFW_source}/xkb_unicode.c",
+            "%{Dir.GLFW_source}/xkb_unicode .h",
+            "%{Dir.GLFW_source}/posix_module.c",
+            "%{Dir.GLFW_source}/posix_poll.c",
+            "%{Dir.GLFW_source}/posix_poll.h",
+            "%{Dir.GLFW_source}/posix_thread.c",
+            "%{Dir.GLFW_source}/posix_thread.h",
+            "%{Dir.GLFW_source}/posix_time.h",
+            "%{Dir.GLFW_source}/posix_time.c",
+            "%{Dir.GLFW_source}/glx_context.c",
+            "%{Dir.GLFW_source}/egl_context.c",
+            "%{Dir.GLFW_source}/osmesa_context.c",
+            "%{Dir.GLFW_source}/linux_joystick.c",
+            "%{Dir.GLFW_source}/linux_joystick.h",
+		}
+
+		defines
+		{
+			"_GLFW_X11", "_GNU_SOURCE"
+		}
+
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"

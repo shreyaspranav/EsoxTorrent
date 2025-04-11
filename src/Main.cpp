@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 
 int EntryPoint(int argc, char** argv)
 {
-	Esox::ApplicationArgs args = { argc, (const char**)argv };
+	Esox::ApplicationArgs args = { static_cast<uint32_t>(argc), (const char**)argv };
 
 	Esox::ApplicationConfig config;
 	config.args = &args;

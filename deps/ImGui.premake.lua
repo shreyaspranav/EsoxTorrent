@@ -26,10 +26,6 @@ project "ImGui"
     }
 
     filter "system:Windows"
-        links {
-            "opengl32"
-        }
-
         staticruntime "On"
 
     filter "configurations:Debug"

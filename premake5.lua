@@ -52,11 +52,17 @@ project "EsoxTorrent"
         "src"
     }
 
-    defines { "_CRT_SECURE_NO_WARNINGS" }
+ vim.keymap.set("n", "<leader>cc", ":w<CR>:!premake5 gmake --cc=gcc", { desc = "Run Premake (GCC)" })   defines { "_CRT_SECURE_NO_WARNINGS" }
 
     links {
         "GLFW", "ImGui", 
     }
+
+    filter "system:Windows"
+        links "opengl32"
+
+    filter "system:linux"
+        links "GL"
 
     filter "configurations:Debug"
         defines { "DEBUG" }

@@ -1,6 +1,7 @@
 #include "TorrentInfoDecoder.h"
 
 #include <fstream>
+#include <cstring>
 
 #include <bencode.hpp>
 
