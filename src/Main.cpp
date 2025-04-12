@@ -19,6 +19,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLin
 
 int main(int argc, char** argv)
 {
+    std::ios::sync_with_stdio(false);            // Disable sync with C stdout
+    std::cout.setf(std::ios::unitbuf);          // Flush after every output
+
 	return EntryPoint(argc, argv);
 }
 
