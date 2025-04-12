@@ -407,7 +407,9 @@ FodyWeavers.xsd
 *.ini
 *.filters
 
-
+# Makefiles
 MakeFile
 *.make
+
+compile_commands.json
 
