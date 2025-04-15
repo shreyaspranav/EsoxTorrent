@@ -1,7 +1,8 @@
 #include "TorrentHandler.h"
 
+#include "Base.h"
 #include "Handle.h"
-#include "TorrentInfoDecoder.h"
+#include "TorrentDataDecoder.h"
 
 #include <filesystem>
 
@@ -11,7 +12,7 @@ namespace Esox
 {
 	struct Torrent
 	{
-		Ref<TorrentInfo> torrentData;
+		Ref<TorrentData> torrentData;
 		std::filesystem::path filePath, destinationPath;
 	};
 
@@ -23,13 +24,13 @@ namespace Esox
 	// Implementation: -------------------------------------------------------------------------------------------------
 	void TorrentHandler::Init()
 	{
-		AddTorrentFile("resources/torrent-files/Fedora-Astronomy_KDE-Live-x86_64-40.torrent", ""); // TEMP
+		AddTorrentFile("resources/torrent-files/big-buck-bunny.torrent", ""); // TEMP
 	}
 
 	void TorrentHandler::AddTorrentFile(const std::filesystem::path& torrentFilePath, const std::filesystem::path& destinationPath)
 	{
-		Ref<TorrentInfo> torrentInfo = TorrentInfoDecoder::GetTorrentInfoFromTorrentFile(torrentFilePath);
-		if (!torrentInfo)
+		Ref<TorrentData> torrentData = TorrentDataDecoder::GetTorrentDataFromTorrentFile(torrentFilePath);
+		if (!torrentData)
 		{
 			ESOX_LOG_ERROR("Failed to retrieve torrent info!");
 			return;
@@ -40,8 +41,9 @@ namespace Esox
 		Torrent torrent;
 		torrent.destinationPath = destinationPath;
 		torrent.filePath = torrentFilePath;
-		torrent.torrentData = torrentInfo;
+		torrent.torrentData = torrentData;
 
+        torrentData->Log();
 		torrentHandlerState.processingTorrents.insert({ handle, torrent });
 	}
 

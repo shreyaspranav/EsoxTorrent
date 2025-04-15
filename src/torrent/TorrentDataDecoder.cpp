@@ -1,15 +1,19 @@
-#include "TorrentInfoDecoder.h"
+#include "TorrentDataDecoder.h"
 
+#include <cmath>
+#include <cstdint>
 #include <fstream>
 #include <cstring>
 
 #include <bencode.hpp>
+#include <memory>
 
 namespace Esox
 {
-	Ref<TorrentInfo> TorrentInfoDecoder::GetTorrentInfoFromTorrentFile(const std::filesystem::path& torrentFilePath)
+	Ref<TorrentData> TorrentDataDecoder::GetTorrentDataFromTorrentFile(const std::filesystem::path& torrentFilePath)
 	{
-		Ref<TorrentInfo> torrentInfo;
+		Ref<TorrentData> torrentData;
+        Ref<TorrentInfo> torrentInfo;
 
 		char* fileBuffer;
 		Size fileBufferSize;
@@ -54,15 +58,22 @@ namespace Esox
 				// Retrieve the announce URL.
 				String name = std::get<String>(infoDict["name"]);
 
+                torrentData = std::make_shared<TorrentData>();
 				torrentInfo = std::make_shared<TorrentInfo>(name);
-				torrentInfo->name = name;
+                torrentData->info = torrentInfo;
 
-				torrentInfo->announceURL = std::get<String>(rootDict["announce"]);
 				torrentInfo->pieceLength = static_cast<uint32_t>(std::get<bencode::integer>(infoDict["piece length"]));
 
-				std::string pieceHashes = std::get<String>(infoDict["pieces"]);
+				String pieceHashes = std::get<String>(infoDict["pieces"]);
 				torrentInfo->pieceHashes = new char[pieceHashes.size()];
 				memcpy(torrentInfo->pieceHashes, pieceHashes.c_str(), pieceHashes.size()); // Might be unsafe?
+				
+                torrentInfo->pieceCount = ceil(pieceHashes.size() / 20.0f);      // Because each piece hash is 20 byte SHA-1 hash
+                torrentInfo->pieceHashesLength = pieceHashes.size();
+
+                torrentInfo->totalSize = torrentInfo->pieceLength * torrentInfo->pieceCount;
+
+                torrentData->announce = std::get<String>(rootDict["announce"]);
 			}
 
 			// Optional ones: -------------------------------------------------
@@ -70,16 +81,43 @@ namespace Esox
 			{
 				if (rootDict.find("announce-list") != rootDict.end())
 				{
-					auto&& announceList = std::get<bencode::list>(infoDict["announce-list"]);
+					auto&& announceList = std::get<bencode::list>(rootDict["announce-list"]);
 					for (auto&& announceListEntry : announceList)
-						torrentInfo->announceList.push_back(std::get<String>(announceListEntry));
+                    {
+                        // announce-list is actually a list of a list
+                        // The outer list contains list of trackers sorted w.r.t priority,
+                        // The inner list contains the trackers with equal priority.
+                        // For now, I will add the trackers in a single list.
+                        // TODO: Add priority information along with the tracker.
+                        auto&& trackerList = std::get<bencode::list>(announceListEntry);
+                        for(auto&& trackerEntry : trackerList)
+						    torrentData->announceList.push_back(std::get<String>(trackerEntry));
+                    }
 				}
 
 				if (rootDict.find("url-list") != rootDict.end())
 				{
-					auto&& urlList = std::get<bencode::list>(infoDict["url-list"]);
+					auto&& urlList = std::get<bencode::list>(rootDict["url-list"]);
 					for (auto&& urlListEntry : urlList)
-						torrentInfo->urlList.push_back(std::get<String>(urlListEntry));
+						torrentData->urlList.push_back(std::get<String>(urlListEntry));
+				}
+
+                if (rootDict.find("created by") != rootDict.end())
+				{
+					String createdBy = std::get<String>(rootDict["created by"]);
+                    torrentData->createdBy = createdBy;
+				}
+
+                if (rootDict.find("comment") != rootDict.end())
+				{
+					String comment = std::get<String>(rootDict["comment"]);
+                    torrentData->comment = comment;
+				}
+
+                if (rootDict.find("creation date") != rootDict.end())
+				{
+					uint32_t creationDate = std::get<bencode::integer>(rootDict["creation date"]);
+                    torrentData->creationDate = creationDate;
 				}
 
 				if (infoDict.find("files") != infoDict.end())
@@ -106,10 +144,11 @@ namespace Esox
 				}
 			}
 		}
-		return torrentInfo;
+		return torrentData;
 	}
-	Ref<TorrentInfo> TorrentInfoDecoder::GetTorrentInfoFromMagnetLink(const String& link)
+	Ref<TorrentData> TorrentDataDecoder::GetTorrentDataFromMagnetLink(const String& link)
 	{
+        // TODO: To be implemented.
 		return nullptr;
 	}
 }
