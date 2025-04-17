@@ -1,12 +1,14 @@
 #include "TorrentDataDecoder.h"
+#include "Base.h"
 
 #include <cmath>
 #include <cstdint>
 #include <fstream>
 #include <cstring>
+#include <memory>
 
 #include <bencode.hpp>
-#include <memory>
+#include <openssl/sha.h>
 
 namespace Esox
 {
@@ -43,7 +45,7 @@ namespace Esox
 			inputFileStream.close();
 		}
 
-		// Decode the .torrent file
+		// Decode the .torrent file + Calculate the "info" hash
 		{
 			auto&& decodedData = bencode::decode(fileBuffer, fileBufferSize);
 			auto&& rootDict = std::get<bencode::dict>(decodedData);
@@ -143,7 +145,13 @@ namespace Esox
 					}
 				}
 			}
+
+            // Calculate the "info" hash
+            String infoBencoded = bencode::encode(infoDict);
+            SHA1(reinterpret_cast<const uint8_t*>(infoBencoded.c_str()), infoBencoded.length(), torrentData->infoHash);
 		}
+
+        delete[] fileBuffer;
 		return torrentData;
 	}
 	Ref<TorrentData> TorrentDataDecoder::GetTorrentDataFromMagnetLink(const String& link)

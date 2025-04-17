@@ -62,8 +62,10 @@ project "EsoxTorrent"
         links "opengl32"
 
     filter "system:linux"
-        links "GL"
-
+        links {
+            "GL",
+            "ssl", "crypto" -- For OpenSSL
+        }
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"

@@ -4,8 +4,9 @@
 #include <ctime>
 #include <filesystem>
 #include <iomanip>
-#include <locale>
 #include <sstream>
+
+#define SHA_HASH_LENGTH 20
 
 namespace Esox
 {
@@ -34,6 +35,8 @@ namespace Esox
         // List of compulsory fields: [These data should not be empty]
         String announce;
         Ref<TorrentInfo> info;
+
+        uint8_t infoHash[SHA_HASH_LENGTH];
 
         // Optional data: [These data could be empty]
         Vector<String> announceList, urlList;
