@@ -73,7 +73,7 @@ namespace Esox
             ESOX_LOG_INFO("Piece Count: %u",  info->pieceCount);
             ESOX_LOG_INFO("Total Size: %zuB", info->totalSize);
 
-            ESOX_LOG_INFO("File List: ", info->filePathsAndSizes.size());
+            ESOX_LOG_INFO("File List: %zu File(s)", info->filePathsAndSizes.size());
             for (auto&& filePair: info->filePathsAndSizes)
                 ESOX_LOG_INFO("    %s: %zuB", filePair.first.c_str(), filePair.second);
 
