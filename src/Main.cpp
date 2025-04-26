@@ -7,7 +7,7 @@
 int EntryPoint(int argc, char** argv);
 
 // Using WinMain instead of main to disable that command window.
-#if defined(_WIN32) && defined(NDEBUG)
+#if defined(_WIN32) && defined(PRODUCTION)
 #include <Windows.h>
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)

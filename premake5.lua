@@ -59,7 +59,17 @@ project "EsoxTorrent"
     }
 
     filter "system:Windows"
-        links "opengl32"
+        openssl_path = os.getenv("OPENSSL_PATH")
+        
+        includedirs {
+            "%{openssl_path}/include"
+        }
+        libdirs "%{openssl_path}/lib/VC/x64/MT"
+        links { 
+            "opengl32",
+            "libcrypto", 
+            "libssl"
+        }
 
     filter "system:linux"
         links {

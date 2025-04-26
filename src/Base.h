@@ -31,6 +31,9 @@
     #define ESOX_LOG_WARN(fmt, ...)    __ESOX_LOG(WARNING, fmt, ##__VA_ARGS__)
     #define ESOX_LOG_INFO(fmt, ...)    __ESOX_LOG(INFO, fmt, ##__VA_ARGS__)
 #else
+    #define ESOX_ASSERT(COND)
+    #define ESOX_STATIC_ASSERT(COND, S)
+
     // Logger for different scenarios:
     #define ESOX_LOG_ERROR(fmt, ...)
     #define ESOX_LOG_WARN(fmt, ...) 
