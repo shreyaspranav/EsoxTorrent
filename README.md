@@ -24,9 +24,13 @@ To Build EsoxTorrent in Linux, Follow the instructions:
     - Download Premake from [here](https://github.com/premake/premake-core/releases/download/v5.0.0-beta6/premake-5.0.0-beta6-linux.tar.gz)
     - Extract the files to some location add the location to `PATH` environmental variable 
 - Install OpenSSL
-    - Ubuntu/Debian based systems: `sudo apt-get install libssl-dev`
+    - Ubuntu/Debian based systems: `sudo apt install libssl-dev`
     - Fedora/RHEL `sudo dnf install openssl-devel`
     - Arch `sudo pacman -S openssl`
+- Install Zenity (Required for File Dialogs)
+    - Ubuntu/Debian based systems: `sudo apt install zenity`
+    - Fedora/RHEL `sudo dnf install zenity`
+    - Arch `sudo pacman -S zenity`
 - Clone the project
     - Run `git clone --recursive https://github.com/shreyaspranav/EsoxTorrent.git`
 - Generate Makefiles by running `premake5 gmake --cc=clang` (or `--cc=gcc` if you prefer)

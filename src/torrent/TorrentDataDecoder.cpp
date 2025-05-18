@@ -122,9 +122,18 @@ namespace Esox
                     torrentData->creationDate = creationDate;
 				}
 
+                // if there is the field called length, it is a single file torrent.
+                if (infoDict.find("length") != infoDict.end())
+                {
+                    uint32_t totalSize = std::get<bencode::integer>(infoDict["length"]);
+                    torrentInfo->totalSize = static_cast<size_t>(totalSize);
+                }
+
 				if (infoDict.find("files") != infoDict.end())
 				{
 					auto&& fileList = std::get<bencode::list>(infoDict["files"]);
+                    torrentInfo->totalSize = 0;
+
 					for (auto&& fileEntry : fileList)
 					{
 						auto&& fileEntryDict = std::get<bencode::dict>(fileEntry);
@@ -142,6 +151,7 @@ namespace Esox
 						Size size = std::get<bencode::integer>(fileEntryDict["length"]);
 
 						torrentInfo->filePathsAndSizes.push_back({ filePath, size });
+                        torrentInfo->totalSize += size;
 					}
 				}
 			}

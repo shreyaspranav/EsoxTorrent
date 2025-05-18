@@ -3,6 +3,8 @@
 #include "Base.h"
 #include "ApplicationWindow.h"
 
+#include <asio/io_context.hpp>
+
 namespace Esox
 {
 	// Struct that holds the command-line arguments of the application, used a raw string array
@@ -40,6 +42,8 @@ namespace Esox
 		void Finish();
 
 	private:
+        Ref<asio::io_context> m_Ctx;
+
 		ApplicationConfig m_Config;
 		ApplicationWindow* m_AppWindow;
 	};

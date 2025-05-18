@@ -4,6 +4,13 @@ Premake Build Configuration for EsoxTorrent
 The Project currrently supports 32 bit(x86) and 64 bit(x86_64) architectures
 --]]
 
+-- Version of EsoxTorrent.
+esox_version_string = "0.0.1-beta"
+esox_version_major = 0
+esox_version_minor = 0
+esox_version_patch = 1
+esox_version_beta = true
+
 -- Name of the 'bin' folder
 bin_folder = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -52,10 +59,16 @@ project "EsoxTorrent"
         "src"
     }
 
-    defines { "_CRT_SECURE_NO_WARNINGS" }
+    defines {
+        "ESOX_VERSION_STRING=\"%{esox_version_string}\"",
+        "ESOX_VERSION_MAJOR=%{esox_version_major}",
+        "ESOX_VERSION_MINOR=%{esox_version_minor}",
+        "ESOX_VERSION_PATCH=%{esox_version_patch}",
+        "ESOX_VERSION_BETA=%{esox_version_beta}"
+    }
 
     links {
-        "GLFW", "ImGui", 
+        "GLFW", "ImGui"
     }
 
     filter "system:Windows"
@@ -70,6 +83,9 @@ project "EsoxTorrent"
             "libcrypto", 
             "libssl"
         }
+
+    filter {"system:Windows", "action:vs*" }
+        defines "_CRT_SECURE_NO_WARNINGS"
 
     filter "system:linux"
         links {

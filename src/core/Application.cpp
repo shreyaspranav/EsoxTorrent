@@ -12,7 +12,7 @@ namespace Esox
 	Application::Application(const ApplicationConfig& config)
 		:m_Config(config)
 	{
-		
+        m_Ctx = std::make_shared<asio::io_context>();
 	}
 
 	Application::~Application()
@@ -51,7 +51,7 @@ namespace Esox
 		UILayer* mainLayer = new MainUILayer();
 		UIManager::PushUILayer(mainLayer);
 
-		TorrentHandler::Init();
+		TorrentHandler::Init(m_Ctx);
 	}
 
 	void Application::Update(float timestep)
@@ -67,6 +67,7 @@ namespace Esox
 	void Application::Finish()
 	{
 		UIManager::Finalize();
+        TorrentHandler::Shutdown();
 	}
 }
 

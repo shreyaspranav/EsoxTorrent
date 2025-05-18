@@ -1,4 +1,6 @@
 #include "MainUILayer.h"
+#include "Base.h"
+#include "ui/FileDialog.h"
 #include <iostream>
 
 #include <imgui.h>
@@ -28,7 +30,10 @@ namespace Esox
 		ImGui::Text("This is going to be a torrenting application.");
 		ImGui::Text("Frametime: %f", timestep);
 		if (ImGui::Button("Test Button"))
-			ESOX_LOG_WARN("Button Pressed!");
+        {
+            String s = FileDialog::Open();
+            ESOX_LOG_INFO("%s", s.c_str());
+        }
 
 		ImGui::End();
 	}
