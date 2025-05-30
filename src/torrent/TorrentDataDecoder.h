@@ -12,22 +12,22 @@ namespace Esox
 {
     // This struct defines the information in the "info" dictionary.
     struct TorrentInfo
-	{
-		String name;
-		uint32_t pieceCount, pieceLength;
+    {
+        String name;
+        uint32_t pieceCount, pieceLength;
         size_t totalSize;
 
-		char* pieceHashes;
-		Size pieceHashesLength;
+        char* pieceHashes;
+        Size pieceHashesLength;
 
-		Vector<Pair<String, Size>> filePathsAndSizes;
+        Vector<Pair<String, Size>> filePathsAndSizes;
 
 
-		TorrentInfo(const String& name)
-			:name(name)
-		{}
-		~TorrentInfo() { delete[] pieceHashes; }
-	};
+        TorrentInfo(const String& name)
+            :name(name)
+        {}
+        ~TorrentInfo() { delete[] pieceHashes; }
+    };
 
     // This struct defines the information of a torrent instance.
     struct TorrentData
@@ -82,14 +82,14 @@ namespace Esox
         }
     };
 
-	// Class to decode from torrent files and magnet links:
-	class TorrentDataDecoder
-	{
-	public:
-		// Decodes from a torrent file.
-		static Ref<TorrentData> GetTorrentDataFromTorrentFile(const std::filesystem::path& torrentFilePath);
-		
-		// Decodes from a magnet link.
-		static Ref<TorrentData> GetTorrentDataFromMagnetLink(const String& link);
-	};
+    // Class to decode from torrent files and magnet links:
+    class TorrentDataDecoder
+    {
+    public:
+        // Decodes from a torrent file.
+        static Ref<TorrentData> GetTorrentDataFromTorrentFile(const std::filesystem::path& torrentFilePath);
+        
+        // Decodes from a magnet link.
+        static Ref<TorrentData> GetTorrentDataFromMagnetLink(const String& link);
+    };
 }

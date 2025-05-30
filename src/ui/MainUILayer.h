@@ -4,15 +4,15 @@
 
 namespace Esox
 {
-	class MainUILayer : public UILayer
-	{
-	public:
-		MainUILayer();
-		~MainUILayer();
+    class MainUILayer : public UILayer
+    {
+    public:
+        MainUILayer();
+        ~MainUILayer();
 
-		virtual void OnPush() override;
-		virtual void OnPop() override;
+        virtual void OnPush() override;
+        virtual void OnPop() override;
 
-		virtual void UIUpdate(float timestep) override;
-	};
+        virtual void UIUpdate(float timestep) override;
+    };
 }

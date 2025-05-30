@@ -8,17 +8,17 @@
 
 namespace Esox
 {
-	class TorrentHandler
-	{
-	public:
-		static void Init(const Ref<asio::io_context>& ctx);
+    class TorrentHandler
+    {
+    public:
+        static void Init(const Ref<asio::io_context>& ctx);
         static void Shutdown();
 
-		static void AddTorrentFile(const std::filesystem::path& torrentFilePath, const std::filesystem::path& destinationPath);
+        static void AddTorrentFile(const std::filesystem::path& torrentFilePath, const std::filesystem::path& destinationPath);
 
-		static void Update(float timestep);
+        static void Update(float timestep);
     private:
         static void TorrentInstanceThreadEP(Handle torrentHandle);
-	};
+    };
 }
 
