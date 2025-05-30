@@ -29,7 +29,7 @@ namespace Esox
             return "";
         }
 #elif defined(_WIN32)
-
+        return "";
 #endif
     }
 }

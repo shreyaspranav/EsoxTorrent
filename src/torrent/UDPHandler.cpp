@@ -1,16 +1,13 @@
 #include "Base.h"
-#include "asio/buffer.hpp"
-#include "asio/detail/chrono.hpp"
-#include "asio/ip/udp.hpp"
-#include "asio/post.hpp"
-#include "asio/registered_buffer.hpp"
-#include "asio/steady_timer.hpp"
+
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
-#include <endian.h>
 #include <string>
+
+#include <asio.hpp>
+
 #include "UDPHandler.h"
 
 namespace Esox

@@ -84,7 +84,7 @@ project "EsoxTorrent"
             "libssl"
         }
 
-    filter {"system:Windows", "action:vs*" }
+    filter { "system:Windows", "action:vs*" }
         defines "_CRT_SECURE_NO_WARNINGS"
 
     filter "system:linux"

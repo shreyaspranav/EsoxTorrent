@@ -3,17 +3,12 @@
 
 #include "URL.h"
 #include "Random.h"
-#include "asio/ip/address.hpp"
-#include "asio/ip/address_v4.hpp"
-#include "asio/ip/udp.hpp"
-#include "asio/post.hpp"
 #include "torrent/PeerCommunicationHandler.h"
 #include "torrent/UDPHandler.h"
 
 #include <asio.hpp>
 #include <cstdint>
 #include <cstring>
-#include <endian.h>
 #include <memory>
 #include <mutex>
 #include <string>
