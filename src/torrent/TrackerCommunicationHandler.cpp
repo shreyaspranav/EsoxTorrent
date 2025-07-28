@@ -305,7 +305,7 @@ namespace Esox
             {
                 if(!ec)
                     BeginUDPTrackerComminucation(*results.begin(), infohash, downloaded, uploaded, total, callback);
-                else
+                else {
                     ESOX_LOG_ERROR(
                         "Failed to resolve %s, (%d: %s, %s)",
                         announce.GetHost().c_str(),
@@ -313,6 +313,15 @@ namespace Esox
                         ec.message().c_str(),
                         ec.category().name()
                     );
+
+                    // Callback an empty response
+                    TrackerResponse response;
+                    response.responded = false;
+                    response.interval = 0;
+                    response.leechers = 0;
+                    response.seeders = 0;
+                    callback(response);
+                }
             }
         );
     }
