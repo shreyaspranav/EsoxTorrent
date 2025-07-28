@@ -58,8 +58,6 @@ namespace Esox
             );
 
         // Generate peerID.
-        // TODO: Serialize this in some safe directory and deserialize during startup
-        // TODO: Only generate peerID if the serialized file is not found.
         torrentHandlerState.peerID = PeerCommunicationHandler::GetSelfPeerID();
 
         TrackerCommunicationHandler::SetIOContext(ctx);

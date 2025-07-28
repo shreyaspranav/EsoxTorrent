@@ -4,12 +4,18 @@
 #include "URL.h"
 
 #include <cstring>
+#include <filesystem>
+#include <fstream>
 #include <sstream>
 
 #include <asio.hpp>
 
 namespace Esox
 {
+    // Constants: ------------------------------------------------------------------------------------------
+    const std::string peerIdFileName = "peerid.bin";
+
+    // -----------------------------------------------------------------------------------------------------
     struct PeerCommunicationHandlerState
     {
         String currentPeerID;
@@ -32,8 +38,25 @@ namespace Esox
         // TODO: This function should generate a peer ID for the first time, serialize it and then
         // use the id, if the serialized id exist, return that ID itself.
 
-        if (state.currentPeerID.empty())
+        if (!std::filesystem::exists(peerIdFileName)) {
             state.currentPeerID = GenerateSelfPeerID();
+
+            // Serialize it. For now, just store it in a binary file on the root directory.
+            std::ofstream ofs(peerIdFileName, std::ios::binary);
+            ofs.write(state.currentPeerID.c_str(), state.currentPeerID.size() + 1); // Include the \0 character as well
+            ofs.close();
+        }
+        else
+        {
+            // Read the first 21 bytes: 20 bytes peer id and \0 character
+            std::ifstream ifs(peerIdFileName, std::ios::binary);
+
+            char peerID[21];
+            ifs.read(peerID, 21 * sizeof(char));
+            state.currentPeerID = std::string(peerID);
+
+            ESOX_LOG_INFO("Read Peer ID: %s", state.currentPeerID.c_str());
+        }
         return state.currentPeerID;
     }
 
