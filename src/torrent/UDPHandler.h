@@ -36,9 +36,8 @@ namespace Esox
         void Stop();
     private:
         void StartRecieve();
-        void HandleRecieve();
-
         void HandleTimeout();
+
     private:
         Ref<asio::io_context> m_Ctx;
         asio::ip::udp::endpoint m_Endpoint;

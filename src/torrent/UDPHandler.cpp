@@ -19,7 +19,7 @@ namespace Esox
     UDPHandler::UDPHandler(const Ref<asio::io_context>& ctx, const asio::ip::udp::endpoint& endpoint)
         :m_Ctx(ctx),
         m_Endpoint(endpoint),
-        m_Socket(*ctx, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0)),
+        m_Socket(*ctx, endpoint.protocol()),
         m_TimeoutTimer(*ctx),
         m_Running(false)
     {
@@ -78,7 +78,7 @@ namespace Esox
         m_CurrentTimeout = m_TimeoutMS;
 
         if(!m_Socket.is_open())
-            m_Socket.open(asio::ip::udp::v4());
+            m_Socket.open(m_Endpoint.protocol());
 
         m_Socket.async_send_to(
             asio::buffer(data, size),
@@ -136,7 +136,7 @@ namespace Esox
         m_Socket.async_receive_from(
             asio::buffer(m_RecieveBuffer, recieveBufferSize),
             ep,
-            [this, &ep](auto&& ec, size_t size)
+            [this, &ep](auto&& ec, Size size)
             {
                 if(!ec)
                 {
@@ -179,7 +179,7 @@ namespace Esox
             m_CurrentTimeout += m_TimeoutMS;
 
             ESOX_LOG_WARN(
-                "Resending Packet to %s, Attempt: %u, Timeout: %u",
+                "Resending Packet to %s, Attempt: %u, Timeout: %ums",
                 m_Endpoint.address().to_string().c_str(),
                 m_CurrentAttempt,
                 m_CurrentTimeout
