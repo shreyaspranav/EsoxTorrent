@@ -122,8 +122,11 @@ namespace Esox
             currentTorrentData->info->totalSize,
             [](UnorderedMap<String, TrackerResponse> response)
             {
+                // TEMP:
                 for(auto&& pair : response)
                     ESOX_LOG_INFO("URL: %s, Tracker Count: %lu", pair.first.c_str(), pair.second.peers.size());
+
+                
             }
         );
     }

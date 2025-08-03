@@ -106,6 +106,8 @@ namespace Esox
             {
                 if(!ec)
                     HandleTimeout();
+                else
+                    ESOX_LOG_ERROR("Async timer failed.");
             }
         );
     }

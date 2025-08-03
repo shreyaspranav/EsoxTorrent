@@ -5,6 +5,7 @@
 #include "Random.h"
 #include "torrent/PeerCommunicationHandler.h"
 #include "torrent/UDPHandler.h"
+#include "torrent/TCPHandler.h"
 
 #include <asio.hpp>
 #include <cstdint>
@@ -222,6 +223,50 @@ namespace Esox
     {
         using namespace asio::ip;
 
+        // TEMP: Test code.
+        // Testing the TCPHandler implementation.
+#if 0
+        Ref<tcp::resolver> resolver = std::make_shared<tcp::resolver>(*state.ctx);
+        resolver->async_resolve(
+            "example.com",
+            std::to_string(80),
+            [resolver](auto&& ec, auto results)
+            {
+                if(!ec)
+                {
+                    TCPHandler* handler = new TCPHandler(state.ctx, *results.begin());
+                    handler->Start(
+                        [handler]()
+                        {
+                            String packet = "GET /index.html HTTP/1.1\r\nHost: example.com\r\nConnection: close\r\n\r\n";
+                            uint8_t* data = (uint8_t*)packet.c_str();
+
+                            handler->SendPacket(
+                                data,
+                                packet.size(),
+                                [](bool success, uint8_t* data, size_t size)
+                                {
+                                    String str((const char*)data);
+                                    ESOX_LOG_INFO("Data: %s", str.c_str());
+                                }
+                            );
+                        }
+                    );
+                }
+                else
+                    ESOX_LOG_ERROR(
+                        "Failed to resolve (%d: %s, %s)",
+                        ec.value(),
+                        ec.message().c_str(),
+                        ec.category().name()
+                    );
+
+            }
+        );
+
+        return;
+#endif
+
         Ref<TrackerResponseAggregationContext> trackerResponseCtx = std::make_shared<TrackerResponseAggregationContext>();
         trackerResponseCtx->callback = callback;
 
@@ -313,7 +358,7 @@ namespace Esox
                         ec.message().c_str(),
                         ec.category().name()
                     );
-
+                    
                     // Callback an empty response
                     TrackerResponse response;
                     response.responded = false;

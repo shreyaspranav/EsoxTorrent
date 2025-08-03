@@ -13,6 +13,10 @@
 
 namespace Esox
 {
+    // Parameters: 
+    //      success: bool     -> false when the packet recieving failed.
+    //      data:    uint8_t* -> pointer for the recieved data.
+    //      size:    size_t   -> size of the packet recieved.
     using ResponseCallback = std::function<void(bool, uint8_t*, size_t)>;
 
     class UDPHandler
