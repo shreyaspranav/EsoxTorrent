@@ -16,6 +16,9 @@ namespace Esox
 
         void SetWindowCloseCallback();
 
+        int GetFrambufferWidth();
+        int GetFrambufferHeight();
+
         // Temp:
         bool WindowShouldClose();
 

@@ -23,6 +23,8 @@ namespace Esox
         Ref<TorrentData> torrentData;
         std::filesystem::path filePath, destinationPath;
         Size uploaded, downloaded;
+
+        UnorderedMap<String, TrackerResponse> trackerResponse;
     };
 
     struct TorrentHandlerData
@@ -104,7 +106,13 @@ namespace Esox
 
     void TorrentHandler::Update(float timestep)
     {
-
+        for(auto& [handle, torrent] : torrentHandlerState.processingTorrents)
+        {
+            if(!torrent.trackerResponse.empty())
+            {
+                
+            }
+        }
     }
 
     // Private Functions: -------------------------------------------------------------------------------------
@@ -120,13 +128,12 @@ namespace Esox
             currentTorrent.downloaded,
             currentTorrent.uploaded,
             currentTorrentData->info->totalSize,
-            [](UnorderedMap<String, TrackerResponse> response)
+            [&currentTorrent](UnorderedMap<String, TrackerResponse> response)
             {
+                currentTorrent.trackerResponse = response;
                 // TEMP:
                 for(auto&& pair : response)
                     ESOX_LOG_INFO("URL: %s, Tracker Count: %lu", pair.first.c_str(), pair.second.peers.size());
-
-                
             }
         );
     }

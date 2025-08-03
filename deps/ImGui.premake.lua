@@ -18,6 +18,14 @@ project "ImGui"
         "%{Dir.ImGui}/imgui_widgets.cpp",
         "%{Dir.ImGui}/backends/imgui_impl_opengl2.cpp",
         "%{Dir.ImGui}/backends/imgui_impl_glfw.cpp",
+
+        -- Add ImPlot files too. (It is an extension to ImGui. So built within the same library)
+        "%{Dir.ImPlot}/implot.h",
+        "%{Dir.ImPlot}/implot_internal.h",
+
+        "%{Dir.ImPlot}/implot.cpp",
+        "%{Dir.ImPlot}/implot_items.cpp",
+        "%{Dir.ImPlot}/implot_demo.cpp",
     }
 
     includedirs {

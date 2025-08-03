@@ -18,6 +18,7 @@ bin_folder = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 Dir = {}
 Dir["GLFW_source"]              = "%{wks.location}/deps/glfw/src"
 Dir["ImGui"]                    = "%{wks.location}/deps/imgui"
+Dir["ImPlot"]                   = "%{wks.location}/deps/implot"
 
 Dir["GLFW_include"]             = "%{wks.location}/deps/glfw/include"
 Dir["glad_include"]             = "%{wks.location}/deps/glad/include"
@@ -53,6 +54,7 @@ project "EsoxTorrent"
         "%{Dir.asio_include}",
         "%{Dir.bencode_hpp}",
         "%{Dir.ImGui}",
+        "%{Dir.ImPlot}",
 
         -- Using the source directory as the include directory to avoid going back 
         -- a folder to import stuff

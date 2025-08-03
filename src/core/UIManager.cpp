@@ -1,6 +1,8 @@
 #include "UIManager.h"
+#include "core/ApplicationWindow.h"
 
 #include <imgui.h>
+#include <implot.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl2.h>
 
@@ -9,20 +11,24 @@ namespace Esox
     struct UIManagerData
     {
         Vector<UILayer*> uiLayers;
-        uint8_t fontSize = 16;
+        uint8_t defaultFontSize = 17;
 
+        ApplicationWindow* window = nullptr;
     }uiManagerState;
 
     void UIManager::Initialize(ApplicationWindow* window)
     {
         ImGui::CreateContext();
+        ImPlot::CreateContext();
 
         ImGuiIO& io = ImGui::GetIO();
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-        io.Fonts->AddFontFromFileTTF("resources/fonts/DroidSans.ttf", uiManagerState.fontSize);
+        io.Fonts->AddFontFromFileTTF("resources/fonts/DroidSans.ttf", uiManagerState.defaultFontSize);
 
         ImGui_ImplGlfw_InitForOpenGL(window->GetNativeWindow(), true);
         ImGui_ImplOpenGL2_Init();
+
+        uiManagerState.window = window;
     }
     void UIManager::PushUILayer(UILayer* layer)
     {
@@ -45,6 +51,10 @@ namespace Esox
 
         ImGui::Render();
         ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+    }
+    ApplicationWindow* UIManager::GetCurrentWindow()
+    {
+        return uiManagerState.window;
     }
     void UIManager::Finalize()
     {

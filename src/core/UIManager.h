@@ -18,8 +18,10 @@ namespace Esox
         // if index is negative, the layers are indexed from the top.
         static void PopUILayer(int32_t index = -1);
         
-        // Renders all the UI in the .lauer stack
+        // Renders all the UI in the layer stack
         static void RenderUI(float timestep);
+
+        static ApplicationWindow* GetCurrentWindow();
 
         static void Finalize();
     private:

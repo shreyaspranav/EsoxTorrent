@@ -56,6 +56,20 @@ namespace Esox
         glfwPollEvents();
     }
 
+    int ApplicationWindow::GetFrambufferWidth()
+    {
+        int width, height;
+        glfwGetFramebufferSize(m_Window, &width, &height);
+        return width;
+    }
+
+    int ApplicationWindow::GetFrambufferHeight()
+    {
+        int width, height;
+        glfwGetFramebufferSize(m_Window, &width, &height);
+        return height;
+    }
+
     void ApplicationWindow::SetWindowCloseCallback()
     {
 
